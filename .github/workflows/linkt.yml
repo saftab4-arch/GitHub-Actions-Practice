@@ -1,0 +1,32 @@
+
+    # This will check if syntax, format, and indentation are correct
+
+name: Auto Linter
+
+on:
+  push:
+    paths:
+      - "*.py"
+
+jobs:
+  code:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Clone the repository
+      - name: Checkout/Clone repository
+        uses: actions/checkout@v4
+
+      # Install Python
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Install Ruff
+      - name: Install Linter
+        run: pip install ruff
+
+      # Run Ruff
+      - name: Check files for linting
+        run: ruff check .
