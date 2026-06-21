@@ -3,10 +3,11 @@ name: Project 02 CI/CD
 on:
   push:
     paths:
-       - "app/**"
-       - "tests/**"
-       - "Dockerfile"
-       - ".github/workflows/cicd.yml"
+
+      - "project-02-advanced-cicd/app/**"
+      - "project-02-advanced-cicd/tests/**"
+      - "project-02-advanced-cicd/Dockerfile"
+      - ".github/workflows/cicd.yml"
 
 jobs:
   lint:
@@ -19,7 +20,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version:"3.12"
+          python-version: "3.12"
 
       - name: Install dependencies
         run: |
@@ -69,6 +70,7 @@ jobs:
       - name: Build and Push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ./project-02-advanced-cicd
+          file: ./project-02-advanced-cicd/Dockerfile
           push: true
           tags: syedaftab04/project-02:v1
