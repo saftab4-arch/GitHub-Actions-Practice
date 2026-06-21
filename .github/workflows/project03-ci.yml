@@ -49,4 +49,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: pytest-report
-        path: report.xml
+        path: project-03-auto-deploy/report.xml
