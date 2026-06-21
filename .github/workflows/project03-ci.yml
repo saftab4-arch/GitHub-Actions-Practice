@@ -2,9 +2,9 @@ name: Project 03 CI
 
 on:
   push:
-  paths:
-    - "project-03-auto-deploy/**"
-    - ".github/workflows/project03-ci.yml"
+    paths:
+      - "project-03-auto-deploy/**"
+      - ".github/workflows/project03-ci.yml"
   workflow_dispatch:
 
 jobs:
@@ -12,7 +12,7 @@ jobs:
 
     runs-on: ubuntu-latest
     defaults:
-        runs:
+        run:
           working-directory: project-03-auto-deploy
 
     strategy:
