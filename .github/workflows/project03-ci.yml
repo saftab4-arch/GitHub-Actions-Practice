@@ -36,7 +36,7 @@ jobs:
       run: pytest
 
     - name: Generate test report
-        run: |
+      run: |
           pytest --junitxml=report.xml
 
     - name: Upload artifacts
