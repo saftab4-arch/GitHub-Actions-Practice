@@ -1,0 +1,46 @@
+name: Project 03 CI
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.13"]
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+         python-version: ${{ matrix.python-version }}
+         cache: pip
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+
+    - name: Ruff
+      run: ruff check .
+
+    - name: Run tests
+      run: pytest
+
+    - name: Generate test report
+        run: |
+          pytest --junitxml=report.xml
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: pytest-report
+        path: report.xml
