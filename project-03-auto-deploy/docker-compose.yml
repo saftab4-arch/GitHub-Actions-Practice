@@ -1,7 +1,7 @@
 services:
 
   app:
-    build: .
+    image: syedaftab04/project03-auto-deploy:latest
     container_name: flask-app
 
     ports:
