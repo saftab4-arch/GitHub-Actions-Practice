@@ -1,0 +1,45 @@
+name: Docker CI/CD
+
+on:
+  push:
+    paths:
+        - "docker-cicd-project/**"
+        - ".github/workflows/docker-cicd.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Ruff
+        run: pip install ruff
+
+      - name: Check Python files
+        run: ruff check .
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+           username: ${{ secrets.DOCKERHUB_USERNAME }}
+           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v6
+        with:
+            context: ./docker-cicd-project
+            push: true
+            tags: syedaftab04/flask-cicd:v1
+
+
+
