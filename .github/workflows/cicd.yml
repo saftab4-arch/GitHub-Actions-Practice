@@ -45,7 +45,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r project-02-advanced-cicd/requirements.txt
-
+          pip install -r project-02-advanced-cicd/requirements-dev.txt
       - name: Run tests
         run: python -m  pytest project-02-advanced-cicd/tests
 
