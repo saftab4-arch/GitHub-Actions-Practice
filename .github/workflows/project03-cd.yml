@@ -18,6 +18,6 @@ jobs:
 
       - name: Deploy containers
         run: |
-          cd ~/project-03-auto-deploy
+          cd /home/syedaftab04/cicd-new-project/project-03-auto-deploy
           docker compose pull
           docker compose up -d
