@@ -1,0 +1,55 @@
+services:
+
+  db:
+    image: postgres:16
+    container_name: project04-db
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d project04db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - project04-net
+    labels:
+      project: "project04"
+      service: "database"
+
+  redis:
+    image: redis:latest
+    container_name: project04-redis
+    restart: always
+    networks:
+      - project04-net
+    labels:
+      project: "project04"
+      service: "cache"
+
+  web:
+    build: ./app
+    image: syedaftab04/project04-zero-touch:latest
+    ##bascially it will built the image and then name tag it just like docker build -t name of the image and image, later this will be used to build cicd image build
+    container_name: project04-web
+    restart: always
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - project04-net
+    labels:
+      project: "project04"
+      service: "web"
+
+networks:
+  project04-net:
+
+volumes:
+  postgres-data:
