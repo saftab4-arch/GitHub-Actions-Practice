@@ -40,6 +40,9 @@ jobs:
           cd project-04-zero-touch-cicd
           docker compose up -d
 
+      -name: wait for app
+        run: skeep 15
+
       - name: Verify Deployment
         run: |
           curl -f http://localhost:5000
