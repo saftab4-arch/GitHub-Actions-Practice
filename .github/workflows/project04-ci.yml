@@ -27,8 +27,8 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r app/requirements.txt
-          pip install -r requirements-dev.txt
+          pip install -r project-04-zero-touch-cicd/app/requirements.txt
+          pip install -r project-04-zero-touch-cicd/app/requirements-dev.txt
 
       - name: Run Ruff
         run: |
@@ -36,6 +36,7 @@ jobs:
 
       - name: Run Pytest
         run: |
+          cd project-04-zero-touch-cicd 
           mkdir -p reports
           pytest --junitxml=reports/results.xml
 
@@ -43,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: pytest-report-${{ matrix.python-version }}
-          path: reports/results.xml
+          path: project-04-zero-touch-cicd/reports/results.xml
 
 
   build:
@@ -63,8 +64,10 @@ jobs:
 
       - name: Build Docker Image with Compose
         run: |
+          cd project-04-zero-touch-cicd
           docker compose build web
 
       - name: Push Docker Image to Docker Hub
         run: |
+          cd project-04-zero-touch-cicd
           docker compose push web
