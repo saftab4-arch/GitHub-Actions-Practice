@@ -9,14 +9,11 @@ on:
   workflow_dispatch:
 
 jobs:
-
   deploy:
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
-
     runs-on: self-hosted
 
     steps:
-
       - name: Checkout Repository
         uses: actions/checkout@v4
 
@@ -40,9 +37,8 @@ jobs:
           cd project-04-zero-touch-cicd
           docker compose up -d
 
-      -name: Wait for app
+      - name: Wait for app
         run: sleep 15
 
       - name: Verify Deployment
-        run: |
-          curl -f http://localhost:5000
+        run: curl -f http://localhost:5000
