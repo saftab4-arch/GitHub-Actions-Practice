@@ -30,7 +30,6 @@ services:
       service: "cache"
 
   web:
-    build: ./app
     image: syedaftab04/project04-zero-touch:latest
     ##bascially it will built the image and then name tag it just like docker build -t name of the image and image, later this will be used to build cicd image build
     container_name: project04-web
